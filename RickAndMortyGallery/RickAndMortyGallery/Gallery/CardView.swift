@@ -18,7 +18,7 @@ class CardView: UIView {
     private let onboardingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "rickandmorty")
+        imageView.image = UIImage(named: "rick")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -34,18 +34,19 @@ class CardView: UIView {
         return label
     }()
     
-    private var skipOnBoardingButton: UIButton = {
+    private lazy var skipOnBoardingButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.title = "Pulsa para continuar"
         config.subtitle = "Onboarding"
-        
+               
         let button = UIButton(type: .system)
-        button.addTarget(CardView.self, action: #selector(showMessage), for: .touchUpInside)
-        
+        button.setTitle("Pulsa para continuar", for: .normal)
+        button.addTarget(self, action: #selector(showMessage), for: .touchUpInside)
         button.configuration = config
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
     
     lazy var button: UIButton = {
         let button = UIButton()
@@ -55,11 +56,16 @@ class CardView: UIView {
         return button
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        setup()
+//        isUserInteractionEnabled = true
+////        skipOnBoardingButton.addTarget(self, action: #selector(showMessage), for: .touchUpInside)
+//    }
+    
+    init() {
+        super.init(frame: .zero)
         setup()
-        isUserInteractionEnabled = true
-        //skipOnBoardingButton.addTarget(self, action: #selector(showMessage), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -72,29 +78,24 @@ class CardView: UIView {
     }
     
     private func addSubviews() {
-        //[onboardingImageView, textLabel, skipOnBoardingButton, button]
-        //    .forEach(addSubview)
-        addSubview(button)
+        [onboardingImageView, textLabel, skipOnBoardingButton]
+            .forEach(addSubview)
     }
     
     private func configureConstraints() {
         NSLayoutConstraint.activate([
-            /*onboardingImageView.bottomAnchor.constraint(equalTo: textLabel.topAnchor, constant: -82),
+            onboardingImageView.topAnchor.constraint(equalTo: topAnchor),
             onboardingImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             onboardingImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            
-            textLabel.bottomAnchor.constraint(equalTo: skipOnBoardingButton.topAnchor, constant: -42),
+
+            textLabel.topAnchor.constraint(equalTo: onboardingImageView.bottomAnchor, constant: 20),
             textLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             textLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            textLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            skipOnBoardingButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            skipOnBoardingButton.centerYAnchor.constraint(equalTo: centerYAnchor),*/
-            
-            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            
-            button.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
+
+            skipOnBoardingButton.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 20),
+            skipOnBoardingButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+            skipOnBoardingButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            skipOnBoardingButton.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
     

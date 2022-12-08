@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController, NotificacionSettingViewDelegate {
 
     //private let notificationsView = NotificacionSettingView()
-    private let cardViewCharacter = CardViewCharacter(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
+    private let cardViewCharacter = CardViewCharacter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,18 +19,28 @@ class ViewController: UIViewController, NotificacionSettingViewDelegate {
         //notificationsView.delegate = self
         title = "Rick and Morty"
         //view.addSubview(notificationsView)
-        cardViewCharacter.layer.shadowColor = UIColor.black.cgColor
-        cardViewCharacter.layer.shadowOpacity = 0.2
-        cardViewCharacter.layer.shadowOffset = CGSize(width: 4, height: 4)
-        cardViewCharacter.layer.shadowRadius = 5.0
-        cardViewCharacter.layer.masksToBounds = false
+//        cardViewCharacter.layer.shadowColor = UIColor.black.cgColor
+//        cardViewCharacter.layer.shadowOpacity = 0.2
+//        cardViewCharacter.layer.shadowOffset = CGSize(width: 4, height: 4)
+//        cardViewCharacter.layer.shadowRadius = 5.0
+//        cardViewCharacter.layer.masksToBounds = false
         cardViewCharacter.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(cardViewCharacter)
+        let containerStackView = UIStackView(arrangedSubviews: [CardViewCharacter(), CardViewCharacter()])
+        containerStackView.axis = .horizontal
+        containerStackView.spacing = 8
+        containerStackView.distribution = .fillEqually
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(containerStackView)
         NSLayoutConstraint.activate([
-            cardViewCharacter.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            cardViewCharacter.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            cardViewCharacter.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            containerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            containerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            
+//            cardViewCharacter.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            cardViewCharacter.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+//            cardViewCharacter.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
         ])
     }
     

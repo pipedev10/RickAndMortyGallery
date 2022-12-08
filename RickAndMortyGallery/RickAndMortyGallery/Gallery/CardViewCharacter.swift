@@ -8,11 +8,20 @@
 import UIKit
 
 class CardViewCharacter: UIView {
+    private let image = UIImage()
+    
+    private let imageWith: Double = 150
 
+    private func setupImageCornerRadius() {
+        imageCharacterView.layer.cornerRadius = imageCharacterView.bounds.width / 2
+        imageCharacterView.layer.masksToBounds = true
+    }
+    
+    
     private let nameCharacterLabel: UILabel = {
         let label = UILabel()
         label.text = "Rick"
-        label.font = UIFont(name: "Arial Rounded MT Bold", size: 32)
+        label.font = UIFont(name: "Arial Rounded MT Bold", size: 24)
         label.textAlignment = .left
         label.textColor = .purple
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -20,7 +29,7 @@ class CardViewCharacter: UIView {
         return label
     }()
     
-    private let imageCharacterView: UIImageView = {
+    private lazy var imageCharacterView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "rick")
         imageView.contentMode = .scaleAspectFit
@@ -33,7 +42,7 @@ class CardViewCharacter: UIView {
     private let statusCharacterLabel: UILabel = {
         let label = UILabel()
         label.text = "Alive"
-        label.font = UIFont(name: "Arial Rounded MT Bold", size: 26)
+        label.font = UIFont(name: "Arial Rounded MT Bold", size: 16)
         label.textAlignment = .left
         label.textColor = .purple
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +53,7 @@ class CardViewCharacter: UIView {
     private let speciesCharacterLabel: UILabel = {
         let label = UILabel()
         label.text = "Human"
-        label.font = UIFont(name: "Arial Rounded MT Bold", size: 26)
+        label.font = UIFont(name: "Arial Rounded MT Bold", size: 16)
         label.textAlignment = .left
         label.textColor = .purple
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,33 +61,60 @@ class CardViewCharacter: UIView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private let containerPillStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 5
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
+    init() {
+        super.init(frame: .zero)
         backgroundColor = .systemGreen
+        layer.cornerRadius = 20
+        layer.masksToBounds = true
         //addShadow()
         
         addSubview(nameCharacterLabel)
         addSubview(imageCharacterView)
-        addSubview(statusCharacterLabel)
-        addSubview(speciesCharacterLabel)
+        addSubview(containerPillStackView)
+       
+        NSLayoutConstraint.activate([
+            nameCharacterLabel.topAnchor.constraint(equalTo: topAnchor, constant: 25),
+            nameCharacterLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            nameCharacterLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            
+            containerPillStackView.topAnchor.constraint(equalTo: nameCharacterLabel.bottomAnchor, constant: 25),
+            containerPillStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+//            containerPillStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
+            
+            imageCharacterView.leadingAnchor.constraint(greaterThanOrEqualTo: containerPillStackView.trailingAnchor, constant: 5),
+            imageCharacterView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            imageCharacterView.topAnchor.constraint(equalTo: nameCharacterLabel.bottomAnchor, constant: 10),
+            imageCharacterView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+        ])
+                     
+        containerPillStackView.addArrangedSubview(statusCharacterLabel)
+        containerPillStackView.addArrangedSubview(speciesCharacterLabel)
+        
+        statusCharacterLabel.setContentHuggingPriority(.defaultHigh + 10, for: .vertical)
+        
+        setupImageCornerRadius()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
         NSLayoutConstraint.activate([
-            nameCharacterLabel.topAnchor.constraint(equalTo: topAnchor, constant: 40),
-            nameCharacterLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            nameCharacterLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            
-            imageCharacterView.topAnchor.constraint(equalTo: nameCharacterLabel.bottomAnchor, constant: 10),
-            imageCharacterView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageCharacterView.heightAnchor.constraint(equalToConstant: 150),
-            imageCharacterView.widthAnchor.constraint(equalToConstant: 150),
-            
-            statusCharacterLabel.topAnchor.constraint(equalTo: nameCharacterLabel.bottomAnchor, constant: 10),
-            statusCharacterLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            
-            speciesCharacterLabel.topAnchor.constraint(equalTo: statusCharacterLabel.bottomAnchor, constant: 5),
-            speciesCharacterLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            
+            imageCharacterView.widthAnchor.constraint(equalToConstant: bounds.width / 2),
+            imageCharacterView.heightAnchor.constraint(equalToConstant: bounds.width / 2)
         ])
+        
+        setupImageCornerRadius()
     }
     
     required init?(coder: NSCoder) {
