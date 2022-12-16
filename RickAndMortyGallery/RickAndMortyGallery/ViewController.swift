@@ -38,6 +38,7 @@ class ViewController: UIViewController, NotificacionSettingViewDelegate {
             containerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             containerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
+            
 //            cardViewCharacter.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 //            cardViewCharacter.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
 //            cardViewCharacter.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
@@ -46,11 +47,6 @@ class ViewController: UIViewController, NotificacionSettingViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        /*notificationsView.frame = CGRect(x: 10,
-                     y: view.safeAreaInsets.top,
-                     width: view.frame.size.width-20,
-                     height: view.frame.size.height-view.safeAreaInsets.top-view.safeAreaInsets.bottom)
-         */
     }
     
     func didTapEnabledButton() {

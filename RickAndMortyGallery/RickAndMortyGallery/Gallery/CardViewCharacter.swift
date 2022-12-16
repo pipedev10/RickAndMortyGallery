@@ -17,6 +17,7 @@ class CardViewCharacter: UIView {
         imageCharacterView.layer.masksToBounds = true
     }
     
+    let pillView = PillView(textPill: "Text")
     
     private let nameCharacterLabel: UILabel = {
         let label = UILabel()
@@ -90,16 +91,16 @@ class CardViewCharacter: UIView {
             
             containerPillStackView.topAnchor.constraint(equalTo: nameCharacterLabel.bottomAnchor, constant: 25),
             containerPillStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-//            containerPillStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
             
             imageCharacterView.leadingAnchor.constraint(greaterThanOrEqualTo: containerPillStackView.trailingAnchor, constant: 5),
             imageCharacterView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             imageCharacterView.topAnchor.constraint(equalTo: nameCharacterLabel.bottomAnchor, constant: 10),
             imageCharacterView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+        
         ])
                      
-        containerPillStackView.addArrangedSubview(statusCharacterLabel)
-        containerPillStackView.addArrangedSubview(speciesCharacterLabel)
+        containerPillStackView.addArrangedSubview(PillView(textPill: "Alive"))
+        containerPillStackView.addArrangedSubview(PillView(textPill: "Human"))
         
         statusCharacterLabel.setContentHuggingPriority(.defaultHigh + 10, for: .vertical)
         
