@@ -37,7 +37,6 @@ class PillView: UIView {
             textLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            
         ])
     }
     
