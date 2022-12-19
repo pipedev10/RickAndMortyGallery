@@ -12,7 +12,7 @@ class PillView: UIView {
     private let textLabel: UILabel = {
         let label = UILabel()
         label.text = "Alive"
-        label.font = UIFont(name: "Arial Rounded MT Bold", size: 16)
+        label.font = UIFont.configFont(name: .arialBold, size: 16)
         label.textAlignment = .center
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -20,10 +20,10 @@ class PillView: UIView {
         return label
     }()
     
-    init(textPill: String) {
+    init(textPill: String, backgroundColor: UIColor = .white) {
         super.init(frame: .zero)
         configView()
-        configPill(pillName: textPill)
+        configPill(pillName: textPill, color: backgroundColor)
     }
     
     required init?(coder: NSCoder) {
@@ -31,9 +31,6 @@ class PillView: UIView {
     }
     
     private func configView() {
-        backgroundColor = .blue
-        layer.cornerRadius = 20
-        layer.masksToBounds = true
         addSubview(textLabel)
         NSLayoutConstraint.activate([
             textLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
@@ -44,8 +41,10 @@ class PillView: UIView {
         ])
     }
     
-    private func configPill(pillName textPill: String) {
+    private func configPill(pillName textPill: String, color backgroundColor: UIColor) {
         textLabel.text = textPill
+        self.backgroundColor = backgroundColor
+        layer.cornerRadius = 20
+        layer.masksToBounds = true
     }
-    
 }
